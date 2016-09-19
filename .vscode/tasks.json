@@ -1,0 +1,36 @@
+{
+	"version": "0.1.0",
+	"isShellCommand": true,
+	"showOutput": "always",
+	"command": "npm",
+	"tasks": [
+		{
+			"taskName": "build",
+			"args": [
+				"run",
+				"build"
+			],
+			"suppressTaskName": true,
+			"isBuildCommand": true,
+			"problemMatcher": [
+				"$lessCompile",
+				"$tsc"
+			]
+		},
+		{
+			"taskName": "install",
+			"args": [
+				"install"
+			],
+			"suppressTaskName": true
+		},
+		{
+			"taskName": "deploy",
+			"args": [
+				"run",
+				"deploy"
+			],
+			"suppressTaskName": true
+		}
+	]
+}

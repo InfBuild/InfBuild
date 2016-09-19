@@ -1,0 +1,9 @@
+{
+  "name": "infbuild",
+  "dependencies": {
+    "knockout-es5": "^0.4.5",
+    "knockout-fast-foreach": "^0.6.0",
+    "knockout-repeat": "^2.1.0",
+    "knockout-projections": "^1.1.0"
+  }
+}

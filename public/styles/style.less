@@ -1,0 +1,1150 @@
+// out: ../../dist/styles/style.css
+@color-fighter: #0055ff;
+@color-multirole: #aa00ff;
+@color-attacker: #dc0000;
+@color-bomber: #009600;
+@color-pistonfighter: #aa99ff;
+@color-toair: #0055ff;
+@color-toground: #dc0000;
+@color-other: #aa00ff;
+@color-body: #0055ff;
+@color-arms: #009600;
+@color-misc: #aa00ff;
+@color-none: #c8c8c8;
+@color-msl: darkblue;
+@color-spw: darkgreen;
+@color-weak: darkcyan;
+@color-strong: darkorchid;
+@color-accent: #1b56a5;
+@color-note: @color-accent;
+@color-border: #bbbbbb;
+
+@gauge-margin: 120px;
+@gauge-width: 16px;
+@gauge-overflow: 1280px;
+@enemy-height: 20px;
+@options-height: 32px;
+@parameters-width: 512px;
+
+.tooltip()
+{
+	position: absolute;
+	display: block;
+	top: 1em;
+	left: 0;
+	margin: 8px -256px -256px 0;
+	padding: 2px 5px;
+	font-size: 9pt;
+	color: black;
+	background: white;
+	border: 1px solid gray;
+	border-radius: 3px;
+	line-height: normal;
+	font-weight: normal;
+	text-align: left;
+	box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 4px;
+	z-index: 1;
+}
+
+.button-style()
+{
+	background: #d8d8d8;
+	padding: 4px 8px;
+	border: none;
+	border: 0 solid @color-border;
+	border-bottom-width: 2px;
+	text-align: center;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: background 0.25s ease, border-color 0.25s ease;
+
+	&:hover, &.checked
+	{
+		background: lighten(@color-accent, 50%);
+		border-color: @color-accent;
+	}
+
+	&:disabled
+	{
+		background: #d8d8d8;
+		border-color: @color-border;
+	}
+
+	&:active
+	{
+		transform: translateY(2px);
+		border-bottom-width: 0;
+	}
+}
+
+.text-outline(@color: white)
+{
+	text-shadow: @color -1px 0 0, @color 1px 0 0, @color 0 -1px 0, @color 0 1px 0, @color -1px -1px 0, @color 1px -1px 0, @color -1px 1px 0, @color 1px 1px 0;
+}
+
+html
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	position: relative;
+	margin: 0 auto;
+	padding: 0;
+	background: #efefef;
+	max-width: 1280px;
+}
+
+body, input, select, textarea, button
+{
+	font-family: 'Segoe UI', Meiryo, sans-serif;
+	font-size: 9pt;
+}
+
+button
+{
+	.button-style();
+
+	&::-moz-focus-inner
+	{
+		border: 0;
+		padding: 0;
+		margin-top: -2px;
+		margin-bottom: -2px;
+	}
+}
+
+input[type='checkbox']
+{
+	vertical-align: middle;
+	margin: 0 4px 2px 0;
+}
+
+select[size]
+{
+	min-width: 128px;
+}
+
+a
+{
+	text-decoration: none;
+
+	&:hover, &:active
+	{
+		text-decoration: underline;
+	}
+}
+
+b
+{
+	font-weight: 600;
+
+	&.note
+	{
+		font-weight: normal;
+	}
+}
+
+@keyframes show-dialog
+{
+	from
+	{
+		opacity: 0;
+	}
+	to
+	{
+		opacity: 1;
+	}
+}
+
+.dialog
+{
+	display: flex;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 10;
+	animation: 0.5s show-dialog;
+
+	> *
+	{
+		max-width: 960px;
+		height: 100%;
+		padding: 24px 8px;
+		background: white;
+		box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+		box-sizing: border-box;
+		overflow: auto;
+	}
+
+	&.hidden
+	{
+		display: none;
+	}
+}
+
+.uncertain
+{
+	position: relative;
+
+	&:after
+	{
+		display: inline;
+		color: orange;
+		content: " \26A0";
+	}
+
+	&:hover:before
+	{
+		.tooltip();
+		content: "Uncertain value, may produce incorrect results";
+	}
+}
+
+header
+{
+	position: relative;
+	margin: 0;
+	padding: 8px;
+	box-sizing: border-box;
+
+	h1
+	{
+		display: table;
+		margin: -2px 0 -8px 0;
+		padding: 0;
+		text-indent: 4px;
+		font-size: 160%;
+		text-transform: uppercase;
+		letter-spacing: 0.5em;
+		
+		#variant
+		{
+			display: table-cell;
+			color: @color-accent;
+			font-weight: 100;			
+			text-transform: none;
+			letter-spacing: 0.25em;
+		}
+
+		#version
+		{
+			display: table-cell;
+			color: @color-accent;
+			font-size: 60%;
+			font-weight: normal;
+			text-transform: none;
+			letter-spacing: 0.25em;
+			opacity: 0.5;
+		}
+	}
+
+	#languages
+	{
+		position: absolute;
+		right: 8px;
+		top: 32px;
+		display: flex;
+		font-family: monospace;
+		letter-spacing: 0.1em;
+		z-index: 1;
+
+		label
+		{
+			display: block;
+			margin: 0 0 0 2px;
+			width: 24px;
+			height: 24px;
+			font-size: 10px;
+			line-height: 22px;
+			text-align: center;
+			border-radius: 16px;
+			text-indent: 0.1em;
+
+			&:hover, &.checked
+			{
+				background: lighten(@color-accent, 50%);
+			}
+		}
+
+		input
+		{
+			display: none;
+		}
+	}
+	
+	p
+	{
+		letter-spacing: 1px;
+		opacity: 0.5;
+	}
+
+	nav
+	{
+		align-items: center;
+	}
+}
+
+footer
+{
+	margin: 8px 0;
+	text-align: right;
+
+	ul
+	{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	li
+	{
+		display: inline;
+		margin: 0;
+		padding: 0;
+
+		+ li
+		{
+			margin-left: 8px;
+		}
+	}
+}
+
+#parameters
+{
+	position: fixed;
+	top: 0;
+	left: auto;
+	width: @parameters-width;
+	height: 100%;
+	overflow: auto;
+}
+
+#results
+{
+	position: relative;
+	margin-left: @parameters-width;
+	padding-top: @gauge-margin;
+	min-height: 100%;
+	background: white;
+	border-bottom: 2px solid @color-border;
+}
+
+label
+{
+	cursor: pointer;
+}
+
+@legend-height: 32px;
+@keyframes show-fieldset
+{
+	from
+	{
+		opacity: 0;
+	}
+	to
+	{
+		opacity: 1;
+	}
+}
+
+fieldset
+{
+	position: relative;
+	margin: 0 8px 8px 8px;
+	padding: @legend-height 0 0 0;
+	border: none;
+	border-bottom: 2px solid @color-border;
+	background: white;
+
+	ul
+	{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		&:after
+		{
+			display: block;
+			content: "";
+			clear: left;
+		}
+	}
+
+	li
+	{
+		display: block;
+		margin: 0 8px 8px 8px;
+		padding: 0;
+	}
+
+	&.hidden
+	{
+		display: none;
+
+		&.visible
+		{
+			display: block;
+			animation: 0.5s show-fieldset ease;
+		}
+	}
+}
+
+legend
+{
+	display: block;
+	position: absolute;
+	top: 0;
+	margin: 0 !important;
+	padding: 0.4em 0;
+	text-indent: 8px;
+	width: 100%;
+	height: @legend-height;
+	font-size: 120%;
+	text-transform: uppercase;
+	letter-spacing: 0.25em;
+	color: gray;
+}
+
+.note
+{
+	color: @color-note;
+	font-size: 80%;
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+label
+{
+	display: block;
+	margin: 0 0 8px 0;
+
+	.note
+	{
+		margin-left: 0.5em;
+	}
+}
+
+input[type="number"]
+{
+	width: 64px;
+}
+
+#aircraft li ~ li,
+#spw li,
+#load-aircraftset li:first-child, #load-aircraftset li:nth-child(2) ,
+#save-aircraftset li:first-child, #save-aircraftset li:nth-child(2)
+{
+	float: left;
+	width: 180px;
+}
+
+#aircraft li:nth-child(2),
+#load-aircraftset li:nth-child(3),
+#save-aircraftset li:nth-child(3)
+{
+	clear: left;
+}
+
+#text-output
+{
+	margin-right: 8px;
+	width: 100%;
+	height: 240px;
+	box-sizing: border-box;
+}
+
+#aircraft-select
+{
+	display: flex;
+}
+
+#aircraft-list
+{
+	margin-left: 2px;
+	width: 128px;
+	box-sizing: border-box;
+}
+
+#aircraft-name
+{
+	position: relative;
+	left: -128px;
+	width: 128px - 20px;
+	margin: 1px;
+	padding: 2px 2px 2px 4px;
+	border: none;
+	box-sizing: border-box;
+
+	&::-webkit-calendar-picker-indicator
+	{
+		display: none;
+	}
+}
+
+#parts-header.fixed
+{
+	position: fixed;
+	left: auto;
+	top: 0;
+	width: @parameters-width - 32px;
+	padding-top: @legend-height;
+	background: white;
+	z-index: 2;
+}
+
+#parts-categories, header nav
+{
+	display: flex;
+	margin: 0 -1px;
+	flex-flow: row;
+
+	> *
+	{
+		.button-style;
+		position: relative;
+		display: block;
+		margin: 0 1px;
+		flex: 1;
+	}
+
+	input
+	{
+		display: none;
+	}
+}
+
+#parts-ttlcst
+{
+	color: black;
+}
+
+#parts-categorized
+{
+	padding: 8px 0;
+
+	li, &.empty:before
+	{
+		position: relative;
+		margin: 0;
+		padding: 1px 8px;
+		height: 26px;
+		line-height: 26px;
+	}
+
+	&.empty:before
+	{
+		display: block;
+		text-align: center;
+		content: "No items to show";
+	}
+
+	li:before
+	{
+		position: absolute;
+		display: block;
+		top: 0;
+		left: 0;
+		width: 0;
+		height: 100%;
+		box-sizing: border-box;
+		content: "";
+		background: lighten(@color-accent, 50%);
+		border: 0 solid @color-accent;
+		opacity: 0;
+		transition: width 0.2s ease, opacity 0.2s ease;
+	}
+
+	.parts-categorized-current
+	{
+		li.checked:before
+		{
+			opacity: 0 !important;
+		}
+
+		li.unsupported.checked:before
+		{
+			opacity: 1 !important;
+		}
+	}
+
+	li.checked:before
+	{
+		width: 100%;
+		opacity: 1 !important;
+		border-bottom-width: 1px;
+	}
+
+	li.category-checked:before, li:hover:before
+	{
+		width: 100%;
+		opacity: 0.5;
+	}
+
+	li.unsupported
+	{
+		color: #666666;
+
+		&:before
+		{
+			width: 100%;
+			background: #e8e8e8;
+			border-color: @color-border;
+		}
+	}
+
+	li.disabled
+	{
+		opacity: 0.5 !important;
+	}
+
+	input
+	{
+		height: 28px;
+	}
+
+	label
+	{
+		position: relative;
+		display: flex;
+		z-index: 1;
+
+		span
+		{
+			width: 32px;
+			text-align: right;
+		}
+	}
+
+	.parts-name
+	{
+		width: auto;
+		margin-right: auto;
+	}
+
+	.parts-power, .parts-hits, .parts-price
+	{
+		color: @color-accent;
+	}
+
+	.parts-cost
+	{
+		width: 56px;
+		text-align: left;
+		text-indent: 12px;
+	}
+
+	.parts-hits, .parts-price
+	{
+		width: 48px;
+	}
+}
+
+.slots
+{
+	&-none
+	{
+		color: @color-none;
+	}
+
+	&-body
+	{
+		color: @color-body;
+	}
+
+	&-arms
+	{
+		color: @color-arms;
+	}
+
+	&-misc
+	{
+		color: @color-misc;
+	}
+
+	&-exceed
+	{
+		color: red;
+	}
+}
+
+#enemies, #gauges
+{
+	position: relative;
+	display: flex;
+	margin: 0 -4px;
+	width: calc(~"100% + 8px");
+	
+	> *
+	{
+		flex: 1;
+		margin: 0 4px;
+	}
+}
+
+#results-options
+{
+	display: flex;
+	position: absolute;
+	left: 0;
+	top: @gauge-margin;
+	padding-left: 8px;
+	width: 100%;
+	box-sizing: border-box;
+	z-index: 2;
+
+	select
+	{
+		margin-right: auto;
+	}
+
+	button
+	{
+		margin-left: 2px;
+	}
+}
+
+#gauges
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;	
+
+	.results-gauges
+	{
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		writing-mode: tb-rl;
+		writing-mode: vertical-rl;
+		padding: 0 0 0 48px;
+		list-style: none;
+		overflow: hidden;
+
+		li
+		{
+			position: relative;
+			margin: 0;
+			padding: 0;
+			text-align: right;
+
+			&:after
+			{
+				display: block;
+				content: "";
+				clear: left;
+			}
+		}
+
+		&:hover
+		{
+			.results-gauge
+			{
+				opacity: 0.1 !important;
+			}
+
+			li:hover .results-gauge
+			{
+				opacity: 1 !important;
+			}
+
+			li:hover .results-gauge-multi
+			{
+				opacity: 0.5 !important;
+			}
+		}
+
+		input
+		{
+			position: absolute;
+			top: 0;
+			right: 0;
+			display: none;
+		}
+
+		label
+		{
+			position: relative;
+			display: block;
+			float: left;
+			padding-bottom: 6px + @options-height;
+			line-height: @gauge-width - 1px;
+			width: @gauge-width * 2;
+			height: @gauge-margin + @options-height;
+			box-sizing: border-box;
+			border-right: 1px solid @color-border;
+			transition: background 0.25s ease, border-color 0.25s ease;
+
+			.note
+			{
+				font-size: inherit;
+			}
+		}
+
+		.results-has-strong, 
+		{
+			label
+			{
+				width: @gauge-width * 3;
+			}
+
+			&.results-has-weak
+			{
+				label
+				{
+					width: @gauge-width * 4;
+				}
+			}
+		}
+
+		label:hover, .selected label
+		{
+			background: lighten(@color-accent, 50%);
+			border-color: @color-accent;
+		}
+
+		button
+		{
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	}
+
+	.uncertain:hover:before
+	{
+		left: -5px;
+		padding: 5px 2px;
+	}
+}
+
+#results-air
+{
+	z-index: 1;
+}
+
+@keyframes show-gauge
+{
+	from
+	{
+		opacity: 0;
+	}
+	to
+	{
+	}
+}
+
+.results-gauge
+{
+	display: block;
+	position: absolute;
+	top: 0;
+	margin: @gauge-margin + @options-height 0 0 0;
+	line-height: @gauge-width - 1px;
+	width: @gauge-width - 1px;
+	height: 0;
+	overflow: visible;
+	border-right: 1px solid;
+	transition: height 0.25s ease, opacity 0.25s ease;
+	animation: 0.5s show-gauge ease;
+	.text-outline;
+
+	span
+	{
+		position: absolute;
+		bottom: -128px - 3px;
+		height: 128px;
+		text-align: left;
+	}
+
+	&:after
+	{
+		position: absolute;
+		right: -1px;
+		bottom: -1px;
+		display: block;
+		content: "";
+		border-bottom: 1px solid;
+		width: @gauge-overflow;
+		opacity: 0.6;
+	}
+
+	&-msl
+	{
+		color: @color-msl;
+		border-color: fade(@color-msl, 60%);
+		background: fade(@color-msl, 20%);
+	}
+
+	&-spw
+	{
+		right: @gauge-width;
+		color: @color-spw;
+		border-color: fade(@color-spw, 60%);
+		background: fade(@color-spw, 20%);
+	}
+
+	&-strong
+	{
+		right: @gauge-width * 2;
+		color: @color-strong;
+		border-color: fade(@color-strong, 60%);
+		background: fade(@color-strong, 20%);
+	}
+
+	&-weak
+	{
+		right: @gauge-width * 2;
+		color: @color-weak;
+		border-color: fade(@color-weak, 60%);
+		background: fade(@color-weak, 20%);
+	}
+
+	.results-has-strong &-weak
+	{
+		right: @gauge-width * 3;
+	}
+
+	&-multi
+	{
+		opacity: 0.5 !important;
+	}
+
+	&-none
+	{
+		color: @color-none;
+		border-color: fade(@color-none, 80%);
+		background: fade(@color-none, 40%);
+
+		b, .note
+		{
+			color: inherit;
+		}
+	}
+}
+
+#enemies
+{
+	padding-top: @options-height;
+
+	dl
+	{
+		line-height: @enemy-height;
+
+		&:after
+		{
+			display: block;
+			content: "";
+			clear: left;
+		}
+	}
+
+	dt
+	{
+		clear: left;
+		float: left;
+		margin: 0;
+		padding: 0 4px;
+		width: 48px;
+		height: @enemy-height;
+		border-right: 1px solid;
+		box-sizing: border-box;
+		text-align: right;
+	}
+
+	dd
+	{
+		margin: 0 0 0 48px;
+		padding: 0 0 0 4px;
+		height: @enemy-height;
+	}
+}
+
+.enemy
+{
+	&-o &-id:after
+	{
+		display: inline;
+		content: "■";
+		color: darkorange;
+		font-size: 75%;
+		margin-left: 2px;
+	}
+
+	&-r &-id:after
+	{
+		display: inline;
+		content: "SP";
+		color: red;
+		font-size: 75%;
+		margin-left: 2px;
+	}
+
+	&-tgt
+	{
+		font-style: italic;
+	}
+
+	&-tgt &-id:after
+	{
+		display: inline;
+		content: "TGT";
+		color: red;
+		font-size: 75%;
+		margin-left: 2px;
+	}
+
+	&-name
+	{
+		font-size: 75%;
+	}
+
+	&-strong
+	{
+		color: @color-strong;
+	}
+
+	&-weak
+	{
+		color: @color-weak;
+	}
+}
+
+.dmg
+{
+	&-none
+	{
+		color: @color-none;
+
+		.rate
+		{
+			color: inherit;
+		}
+	}
+
+	&-d1600
+	{
+		color: darkorange;
+	}
+
+	&-d2000
+	{
+		color: mediumvioletred;
+	}
+
+	&-d2400
+	{
+		color: red;
+	}
+
+	&-soft
+	{
+		position: relative;
+
+		&:after
+		{
+			display: inline;
+			content: "F";
+			color: @color-fighter;
+			font-size: 75%;
+			margin-left: 2px;
+		}
+
+		&:hover:before
+		{
+			.tooltip();
+			content: "現ロールにおける相対値 実際の値: " attr(data-original);
+
+			.lang-en &
+			{
+				content: "Relative value according to current role, actual value is: " attr(data-original);
+			}
+		}
+	}
+}
+
+.role
+{
+	&-f
+	{
+		color: @color-fighter;
+	}
+
+	&-m
+	{
+		color: @color-multirole;
+	}
+
+	&-a
+	{
+		color: @color-attacker;
+	}
+
+	&-b
+	{
+		color: @color-bomber;
+	}
+
+	&-pf
+	{
+		color: @color-pistonfighter;
+	}
+}
+
+.spw
+{
+	&-a
+	{
+		color: @color-toair;
+	}
+
+	&-g
+	{
+		color: @color-toground;
+	}
+
+	&-o
+	{
+		color: @color-other;
+	}
+}
+
+@media screen and (max-width: 960px)
+{
+	#parameters
+	{
+		position: static;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+
+	#parts-header.fixed
+	{
+		width: calc(~"100% - 16px");
+	}
+
+	#parts-categories
+	{
+		flex-wrap: wrap;
+	}
+
+	#results
+	{
+		margin: 0 8px;
+		min-height: none;
+	}
+
+	footer
+	{
+		margin-right: 8px;
+	}
+}

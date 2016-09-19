@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"outFile": "../dist/app.js",
+		"sourceMap": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true
+	}
+}
