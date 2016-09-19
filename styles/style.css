@@ -1,0 +1,828 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+body {
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  background: #efefef;
+  max-width: 1280px;
+}
+body,
+input,
+select,
+textarea,
+button {
+  font-family: 'Segoe UI', Meiryo, sans-serif;
+  font-size: 9pt;
+}
+button {
+  background: #d8d8d8;
+  padding: 4px 8px;
+  border: none;
+  border: 0 solid #bbbbbb;
+  border-bottom-width: 2px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+button:hover,
+button.checked {
+  background: #c9dcf6;
+  border-color: #1b56a5;
+}
+button:disabled {
+  background: #d8d8d8;
+  border-color: #bbbbbb;
+}
+button:active {
+  transform: translateY(2px);
+  border-bottom-width: 0;
+}
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+  margin-top: -2px;
+  margin-bottom: -2px;
+}
+input[type='checkbox'] {
+  vertical-align: middle;
+  margin: 0 4px 2px 0;
+}
+select[size] {
+  min-width: 128px;
+}
+a {
+  text-decoration: none;
+}
+a:hover,
+a:active {
+  text-decoration: underline;
+}
+b {
+  font-weight: 600;
+}
+b.note {
+  font-weight: normal;
+}
+@keyframes show-dialog {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.dialog {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  animation: 0.5s show-dialog;
+}
+.dialog > * {
+  max-width: 960px;
+  height: 100%;
+  padding: 24px 8px;
+  background: white;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  overflow: auto;
+}
+.dialog.hidden {
+  display: none;
+}
+.uncertain {
+  position: relative;
+}
+.uncertain:after {
+  display: inline;
+  color: orange;
+  content: " \26A0";
+}
+.uncertain:hover:before {
+  position: absolute;
+  display: block;
+  top: 1em;
+  left: 0;
+  margin: 8px -256px -256px 0;
+  padding: 2px 5px;
+  font-size: 9pt;
+  color: black;
+  background: white;
+  border: 1px solid gray;
+  border-radius: 3px;
+  line-height: normal;
+  font-weight: normal;
+  text-align: left;
+  box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 4px;
+  z-index: 1;
+  content: "Uncertain value, may produce incorrect results";
+}
+header {
+  position: relative;
+  margin: 0;
+  padding: 8px;
+  box-sizing: border-box;
+}
+header h1 {
+  display: table;
+  margin: -2px 0 -8px 0;
+  padding: 0;
+  text-indent: 4px;
+  font-size: 160%;
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+}
+header h1 #variant {
+  display: table-cell;
+  color: #1b56a5;
+  font-weight: 100;
+  text-transform: none;
+  letter-spacing: 0.25em;
+}
+header h1 #version {
+  display: table-cell;
+  color: #1b56a5;
+  font-size: 60%;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: 0.25em;
+  opacity: 0.5;
+}
+header #languages {
+  position: absolute;
+  right: 8px;
+  top: 32px;
+  display: flex;
+  font-family: monospace;
+  letter-spacing: 0.1em;
+  z-index: 1;
+}
+header #languages label {
+  display: block;
+  margin: 0 0 0 2px;
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+  line-height: 22px;
+  text-align: center;
+  border-radius: 16px;
+  text-indent: 0.1em;
+}
+header #languages label:hover,
+header #languages label.checked {
+  background: #c9dcf6;
+}
+header #languages input {
+  display: none;
+}
+header p {
+  letter-spacing: 1px;
+  opacity: 0.5;
+}
+header nav {
+  align-items: center;
+}
+footer {
+  margin: 8px 0;
+  text-align: right;
+}
+footer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+footer li {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+footer li + li {
+  margin-left: 8px;
+}
+#parameters {
+  position: fixed;
+  top: 0;
+  left: auto;
+  width: 512px;
+  height: 100%;
+  overflow: auto;
+}
+#results {
+  position: relative;
+  margin-left: 512px;
+  padding-top: 120px;
+  min-height: 100%;
+  background: white;
+  border-bottom: 2px solid #bbbbbb;
+}
+label {
+  cursor: pointer;
+}
+@keyframes show-fieldset {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+fieldset {
+  position: relative;
+  margin: 0 8px 8px 8px;
+  padding: 32px 0 0 0;
+  border: none;
+  border-bottom: 2px solid #bbbbbb;
+  background: white;
+}
+fieldset ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+fieldset ul:after {
+  display: block;
+  content: "";
+  clear: left;
+}
+fieldset li {
+  display: block;
+  margin: 0 8px 8px 8px;
+  padding: 0;
+}
+fieldset.hidden {
+  display: none;
+}
+fieldset.hidden.visible {
+  display: block;
+  animation: 0.5s show-fieldset ease;
+}
+legend {
+  display: block;
+  position: absolute;
+  top: 0;
+  margin: 0 !important;
+  padding: 0.4em 0;
+  text-indent: 8px;
+  width: 100%;
+  height: 32px;
+  font-size: 120%;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: gray;
+}
+.note {
+  color: #1b56a5;
+  font-size: 80%;
+  text-transform: none;
+  letter-spacing: 0;
+}
+label {
+  display: block;
+  margin: 0 0 8px 0;
+}
+label .note {
+  margin-left: 0.5em;
+}
+input[type="number"] {
+  width: 64px;
+}
+#aircraft li ~ li,
+#spw li,
+#load-aircraftset li:first-child,
+#load-aircraftset li:nth-child(2),
+#save-aircraftset li:first-child,
+#save-aircraftset li:nth-child(2) {
+  float: left;
+  width: 180px;
+}
+#aircraft li:nth-child(2),
+#load-aircraftset li:nth-child(3),
+#save-aircraftset li:nth-child(3) {
+  clear: left;
+}
+#text-output {
+  margin-right: 8px;
+  width: 100%;
+  height: 240px;
+  box-sizing: border-box;
+}
+#aircraft-select {
+  display: flex;
+}
+#aircraft-list {
+  margin-left: 2px;
+  width: 128px;
+  box-sizing: border-box;
+}
+#aircraft-name {
+  position: relative;
+  left: -128px;
+  width: 108px;
+  margin: 1px;
+  padding: 2px 2px 2px 4px;
+  border: none;
+  box-sizing: border-box;
+}
+#aircraft-name::-webkit-calendar-picker-indicator {
+  display: none;
+}
+#parts-header.fixed {
+  position: fixed;
+  left: auto;
+  top: 0;
+  width: 480px;
+  padding-top: 32px;
+  background: white;
+  z-index: 2;
+}
+#parts-categories,
+header nav {
+  display: flex;
+  margin: 0 -1px;
+  flex-flow: row;
+}
+#parts-categories > *,
+header nav > * {
+  background: #d8d8d8;
+  padding: 4px 8px;
+  border: none;
+  border: 0 solid #bbbbbb;
+  border-bottom-width: 2px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
+  position: relative;
+  display: block;
+  margin: 0 1px;
+  flex: 1;
+}
+#parts-categories > *:hover,
+header nav > *:hover,
+#parts-categories > *.checked,
+header nav > *.checked {
+  background: #c9dcf6;
+  border-color: #1b56a5;
+}
+#parts-categories > *:disabled,
+header nav > *:disabled {
+  background: #d8d8d8;
+  border-color: #bbbbbb;
+}
+#parts-categories > *:active,
+header nav > *:active {
+  transform: translateY(2px);
+  border-bottom-width: 0;
+}
+#parts-categories input,
+header nav input {
+  display: none;
+}
+#parts-ttlcst {
+  color: black;
+}
+#parts-categorized {
+  padding: 8px 0;
+}
+#parts-categorized li,
+#parts-categorized.empty:before {
+  position: relative;
+  margin: 0;
+  padding: 1px 8px;
+  height: 26px;
+  line-height: 26px;
+}
+#parts-categorized.empty:before {
+  display: block;
+  text-align: center;
+  content: "No items to show";
+}
+#parts-categorized li:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  box-sizing: border-box;
+  content: "";
+  background: #c9dcf6;
+  border: 0 solid #1b56a5;
+  opacity: 0;
+  transition: width 0.2s ease, opacity 0.2s ease;
+}
+#parts-categorized .parts-categorized-current li.checked:before {
+  opacity: 0 !important;
+}
+#parts-categorized .parts-categorized-current li.unsupported.checked:before {
+  opacity: 1 !important;
+}
+#parts-categorized li.checked:before {
+  width: 100%;
+  opacity: 1 !important;
+  border-bottom-width: 1px;
+}
+#parts-categorized li.category-checked:before,
+#parts-categorized li:hover:before {
+  width: 100%;
+  opacity: 0.5;
+}
+#parts-categorized li.unsupported {
+  color: #666666;
+}
+#parts-categorized li.unsupported:before {
+  width: 100%;
+  background: #e8e8e8;
+  border-color: #bbbbbb;
+}
+#parts-categorized li.disabled {
+  opacity: 0.5 !important;
+}
+#parts-categorized input {
+  height: 28px;
+}
+#parts-categorized label {
+  position: relative;
+  display: flex;
+  z-index: 1;
+}
+#parts-categorized label span {
+  width: 32px;
+  text-align: right;
+}
+#parts-categorized .parts-name {
+  width: auto;
+  margin-right: auto;
+}
+#parts-categorized .parts-power,
+#parts-categorized .parts-hits,
+#parts-categorized .parts-price {
+  color: #1b56a5;
+}
+#parts-categorized .parts-cost {
+  width: 56px;
+  text-align: left;
+  text-indent: 12px;
+}
+#parts-categorized .parts-hits,
+#parts-categorized .parts-price {
+  width: 48px;
+}
+.slots-none {
+  color: #c8c8c8;
+}
+.slots-body {
+  color: #0055ff;
+}
+.slots-arms {
+  color: #009600;
+}
+.slots-misc {
+  color: #aa00ff;
+}
+.slots-exceed {
+  color: red;
+}
+#enemies,
+#gauges {
+  position: relative;
+  display: flex;
+  margin: 0 -4px;
+  width: calc(100% + 8px);
+}
+#enemies > *,
+#gauges > * {
+  flex: 1;
+  margin: 0 4px;
+}
+#results-options {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 120px;
+  padding-left: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 2;
+}
+#results-options select {
+  margin-right: auto;
+}
+#results-options button {
+  margin-left: 2px;
+}
+#gauges {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+#gauges .results-gauges {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  padding: 0 0 0 48px;
+  list-style: none;
+  overflow: hidden;
+}
+#gauges .results-gauges li {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+#gauges .results-gauges li:after {
+  display: block;
+  content: "";
+  clear: left;
+}
+#gauges .results-gauges:hover .results-gauge {
+  opacity: 0.1 !important;
+}
+#gauges .results-gauges:hover li:hover .results-gauge {
+  opacity: 1 !important;
+}
+#gauges .results-gauges:hover li:hover .results-gauge-multi {
+  opacity: 0.5 !important;
+}
+#gauges .results-gauges input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+#gauges .results-gauges label {
+  position: relative;
+  display: block;
+  float: left;
+  padding-bottom: 38px;
+  line-height: 15px;
+  width: 32px;
+  height: 152px;
+  box-sizing: border-box;
+  border-right: 1px solid #bbbbbb;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+#gauges .results-gauges label .note {
+  font-size: inherit;
+}
+#gauges .results-gauges .results-has-strong label {
+  width: 48px;
+}
+#gauges .results-gauges .results-has-strong.results-has-weak label {
+  width: 64px;
+}
+#gauges .results-gauges label:hover,
+#gauges .results-gauges .selected label {
+  background: #c9dcf6;
+  border-color: #1b56a5;
+}
+#gauges .results-gauges button {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#gauges .uncertain:hover:before {
+  left: -5px;
+  padding: 5px 2px;
+}
+#results-air {
+  z-index: 1;
+}
+@keyframes show-gauge {
+  from {
+    opacity: 0;
+  }
+}
+.results-gauge {
+  display: block;
+  position: absolute;
+  top: 0;
+  margin: 152px 0 0 0;
+  line-height: 15px;
+  width: 15px;
+  height: 0;
+  overflow: visible;
+  border-right: 1px solid;
+  transition: height 0.25s ease, opacity 0.25s ease;
+  animation: 0.5s show-gauge ease;
+  text-shadow: white -1px 0 0, white 1px 0 0, white 0 -1px 0, white 0 1px 0, white -1px -1px 0, white 1px -1px 0, white -1px 1px 0, white 1px 1px 0;
+}
+.results-gauge span {
+  position: absolute;
+  bottom: -131px;
+  height: 128px;
+  text-align: left;
+}
+.results-gauge:after {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  display: block;
+  content: "";
+  border-bottom: 1px solid;
+  width: 1280px;
+  opacity: 0.6;
+}
+.results-gauge-msl {
+  color: darkblue;
+  border-color: rgba(0, 0, 139, 0.6);
+  background: rgba(0, 0, 139, 0.2);
+}
+.results-gauge-spw {
+  right: 16px;
+  color: darkgreen;
+  border-color: rgba(0, 100, 0, 0.6);
+  background: rgba(0, 100, 0, 0.2);
+}
+.results-gauge-strong {
+  right: 32px;
+  color: darkorchid;
+  border-color: rgba(153, 50, 204, 0.6);
+  background: rgba(153, 50, 204, 0.2);
+}
+.results-gauge-weak {
+  right: 32px;
+  color: darkcyan;
+  border-color: rgba(0, 139, 139, 0.6);
+  background: rgba(0, 139, 139, 0.2);
+}
+.results-has-strong .results-gauge-weak {
+  right: 48px;
+}
+.results-gauge-multi {
+  opacity: 0.5 !important;
+}
+.results-gauge-none {
+  color: #c8c8c8;
+  border-color: rgba(200, 200, 200, 0.8);
+  background: rgba(200, 200, 200, 0.4);
+}
+.results-gauge-none b,
+.results-gauge-none .note {
+  color: inherit;
+}
+#enemies {
+  padding-top: 32px;
+}
+#enemies dl {
+  line-height: 20px;
+}
+#enemies dl:after {
+  display: block;
+  content: "";
+  clear: left;
+}
+#enemies dt {
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0 4px;
+  width: 48px;
+  height: 20px;
+  border-right: 1px solid;
+  box-sizing: border-box;
+  text-align: right;
+}
+#enemies dd {
+  margin: 0 0 0 48px;
+  padding: 0 0 0 4px;
+  height: 20px;
+}
+.enemy-o .enemy-id:after {
+  display: inline;
+  content: "■";
+  color: darkorange;
+  font-size: 75%;
+  margin-left: 2px;
+}
+.enemy-r .enemy-id:after {
+  display: inline;
+  content: "SP";
+  color: red;
+  font-size: 75%;
+  margin-left: 2px;
+}
+.enemy-tgt {
+  font-style: italic;
+}
+.enemy-tgt .enemy-id:after {
+  display: inline;
+  content: "TGT";
+  color: red;
+  font-size: 75%;
+  margin-left: 2px;
+}
+.enemy-name {
+  font-size: 75%;
+}
+.enemy-strong {
+  color: darkorchid;
+}
+.enemy-weak {
+  color: darkcyan;
+}
+.dmg-none {
+  color: #c8c8c8;
+}
+.dmg-none .rate {
+  color: inherit;
+}
+.dmg-d1600 {
+  color: darkorange;
+}
+.dmg-d2000 {
+  color: mediumvioletred;
+}
+.dmg-d2400 {
+  color: red;
+}
+.dmg-soft {
+  position: relative;
+}
+.dmg-soft:after {
+  display: inline;
+  content: "F";
+  color: #0055ff;
+  font-size: 75%;
+  margin-left: 2px;
+}
+.dmg-soft:hover:before {
+  position: absolute;
+  display: block;
+  top: 1em;
+  left: 0;
+  margin: 8px -256px -256px 0;
+  padding: 2px 5px;
+  font-size: 9pt;
+  color: black;
+  background: white;
+  border: 1px solid gray;
+  border-radius: 3px;
+  line-height: normal;
+  font-weight: normal;
+  text-align: left;
+  box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 4px;
+  z-index: 1;
+  content: "現ロールにおける相対値 実際の値: " attr(data-original);
+}
+.lang-en .dmg-soft:hover:before {
+  content: "Relative value according to current role, actual value is: " attr(data-original);
+}
+.role-f {
+  color: #0055ff;
+}
+.role-m {
+  color: #aa00ff;
+}
+.role-a {
+  color: #dc0000;
+}
+.role-b {
+  color: #009600;
+}
+.role-pf {
+  color: #aa99ff;
+}
+.spw-a {
+  color: #0055ff;
+}
+.spw-g {
+  color: #dc0000;
+}
+.spw-o {
+  color: #aa00ff;
+}
+@media screen and (max-width: 960px) {
+  #parameters {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+  #parts-header.fixed {
+    width: calc(100% - 16px);
+  }
+  #parts-categories {
+    flex-wrap: wrap;
+  }
+  #results {
+    margin: 0 8px;
+    min-height: none;
+  }
+  footer {
+    margin-right: 8px;
+  }
+}
