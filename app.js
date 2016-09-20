@@ -889,8 +889,12 @@ $(function () {
         return true;
     };
     var app = window["app"] = new AppViewModel(resources, !showDialogFromHash());
-    $(".dialog").on("click", function () { return history.back(); });
-    $(".dialog > *").on("click", function () { return false; });
+    $(".dialog").click(function (e) {
+        if (e.target != e.currentTarget)
+            return true;
+        history.back();
+        return false;
+    });
     $(window).on("hashchange", function () { return showDialogFromHash() || app.loadHash(); });
     setAutoFixedPartsHeader();
     ko.applyBindings(app);
