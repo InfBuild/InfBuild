@@ -58,8 +58,15 @@ $(() =>
 
 	let app = window["app"] = new AppViewModel(resources, !showDialogFromHash());
 
-	$(".dialog").on("click", () => history.back());
-	$(".dialog > *").on("click", () => false);
+	$(".dialog").click(e =>
+	{
+		if (e.target != e.currentTarget)
+			return true;
+		
+		history.back();
+
+		return false;
+	});
 	$(window).on("hashchange", () => showDialogFromHash() || app.loadHash());
 	setAutoFixedPartsHeader();
 	ko.applyBindings(app);
