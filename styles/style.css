@@ -127,6 +127,44 @@ b.note {
   z-index: 1;
   content: "Uncertain value, may produce incorrect results";
 }
+@keyframes hide-loading {
+  from {
+    opacity: 1;
+  }
+  to {
+    display: none;
+    opacity: 0;
+    z-index: -1;
+  }
+}
+#loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 64px;
+  box-sizing: border-box;
+  background: #efefef;
+  z-index: 3;
+}
+#loading h1 {
+  margin: 0 0 -8px 0;
+  font-size: 160%;
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+}
+#loading p {
+  letter-spacing: 1px;
+  opacity: 0.5;
+}
+#loading.hidden {
+  animation: 0.5s hide-loading ease forwards;
+}
 header {
   position: relative;
   margin: 0;
@@ -193,7 +231,7 @@ header nav {
   align-items: center;
 }
 footer {
-  margin: 8px 0;
+  margin: 8px 8px 8px 0;
   text-align: right;
 }
 footer ul {
@@ -220,6 +258,7 @@ footer li + li {
 #results {
   position: relative;
   margin-left: 512px;
+  margin-right: 8px;
   padding-top: 120px;
   min-height: 100%;
   background: white;
@@ -265,6 +304,9 @@ fieldset.hidden {
 fieldset.hidden.visible {
   display: block;
   animation: 0.5s show-fieldset ease;
+}
+fieldset button + button {
+  margin-left: 2px;
 }
 legend {
   display: block;
@@ -336,6 +378,9 @@ input[type="number"] {
 #aircraft-name::-webkit-calendar-picker-indicator {
   display: none;
 }
+#parts-header {
+  height: 26px;
+}
 #parts-header.fixed {
   position: fixed;
   left: auto;
@@ -344,6 +389,9 @@ input[type="number"] {
   padding-top: 32px;
   background: white;
   z-index: 2;
+}
+#parts-header.fixed + #parts-categorized {
+  margin-top: 58px;
 }
 #parts-categories,
 header nav {
@@ -541,6 +589,7 @@ header nav input {
   position: relative;
   margin: 0;
   padding: 0;
+  width: 32px;
   text-align: right;
 }
 #gauges .results-gauges li:after {
@@ -578,11 +627,14 @@ header nav input {
 #gauges .results-gauges label .note {
   font-size: inherit;
 }
-#gauges .results-gauges .results-has-strong label {
+#gauges .results-gauges .results-has-strong {
   width: 48px;
 }
-#gauges .results-gauges .results-has-strong.results-has-weak label {
+#gauges .results-gauges .results-has-strong.results-has-weak {
   width: 64px;
+}
+#gauges .results-gauges label {
+  width: 100%;
 }
 #gauges .results-gauges label:hover,
 #gauges .results-gauges .selected label {
@@ -821,8 +873,5 @@ header nav input {
   #results {
     margin: 0 8px;
     min-height: none;
-  }
-  footer {
-    margin-right: 8px;
   }
 }

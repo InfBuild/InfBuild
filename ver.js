@@ -1,1 +1,1 @@
-Version.publishDate = new Date(1474424368476);
+function initializeVersion(Version) { return new Version(new Date(1475089983696)); }
