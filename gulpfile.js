@@ -1,11 +1,15 @@
-const gulp = require("gulp");
-const less = require("gulp-less");
-const file = require("gulp-file");
-const runSequence = require("run-sequence");
-const ghPages = require("gulp-gh-pages");
-const exec = require("child_process").exec;
-const del = require("del");
-const fs = require("fs");
+const
+	gulp = require("gulp"),
+	less = require("gulp-less"),
+	file = require("gulp-file"),
+	browserify = require("browserify"),
+	tsify = require("tsify"),
+	runSequence = require("run-sequence"),
+	ghPages = require("gulp-gh-pages"),
+	exec = require("child_process").exec,
+	del = require("del"),
+	fs = require("fs"),
+	source = require("vinyl-source-stream");
 
 function shellexec(cmd, cb)
 {
@@ -38,7 +42,12 @@ gulp.task("build:public", () =>
 		"!public/**/*.less"
 	], { base: "public" })
 		.pipe(gulp.dest("dist")));
-gulp.task("build:app", cb => shellexec("tsc -p app", cb));
+gulp.task("build:app", () =>
+	browserify({ entries: "app/entrypoint.tsx", debug: true })
+		.plugin(tsify)
+		.bundle()
+		.pipe(source("app.js"))
+		.pipe(gulp.dest("dist")));
 gulp.task("build", cb =>
 	runSequence(
 		"build:clean",
@@ -46,7 +55,7 @@ gulp.task("build", cb =>
 		cb));
 
 gulp.task("deploy:ver", () =>
-	file("ver.js", `Version.publishDate = new Date(${new Date().getTime()});`, { src: true })
+	file("ver.js", `function initializeVersion(Version) { return new Version(new Date(${new Date().getTime()})); }`, { src: true })
 		.pipe(gulp.dest("dist")));
 gulp.task("deploy:gh-pages", () =>
 	gulp.src("dist/**/*")

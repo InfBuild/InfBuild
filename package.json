@@ -5,14 +5,12 @@
     "install": "gulp install",
     "build": "gulp build",
     "deploy": "gulp deploy",
-    "gulp": "gulp",
-    "bower": "bower"
+    "gulp": "gulp"
   },
   "devDependencies": {
-    "@types/jquery": "^1.10.31",
-    "@types/knockout": "^3.4.33",
-    "@types/knockout.es5": "0.0.30",
-    "bower": "^1.7.9",
+    "@types/react": "^0.14.35",
+    "@types/react-dom": "^0.14.17",
+    "browserify": "^13.1.0",
     "csv-parse": "^1.1.7",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
@@ -20,7 +18,11 @@
     "gulp-gh-pages": "^0.5.4",
     "gulp-less": "^3.1.0",
     "less": "^2.7.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
     "run-sequence": "^1.2.2",
-    "typescript": "^2.0.0"
+    "tsify": "^1.0.7",
+    "typescript": "^2.0.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

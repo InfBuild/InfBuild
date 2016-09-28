@@ -1,4 +1,4 @@
-class AircraftSet
+export default class AircraftSet
 {
 	constructor(public name: string, public codes: string[])
 	{

@@ -1,11 +1,14 @@
-class Version
+export default class Version
 {
-	static publishDate: Date = null;
 	static etc: string = null;
 
-	static get version()
+	constructor(private publishDate: Date = null)
 	{
-		let date = Version.publishDate || new Date();
+	}
+
+	get version()
+	{
+		const date = this.publishDate || new Date();
 
 		return date.getUTCFullYear().toString().substr(2)
 			+ ("0" + (date.getUTCMonth() + 1)).slice(-2)
@@ -15,8 +18,8 @@ class Version
 			+ ("0" + date.getUTCMinutes()).slice(-2);
 	}
 
-	static get variant()
+	get variant()
 	{
-		return [Version.etc, Version.publishDate ? null : "dev"].filter(_ => _ != null).join("-");
+		return [Version.etc, this.publishDate ? null : "dev"].filter(_ => _ != null).join("-");
 	} 
 }

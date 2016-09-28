@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitAny": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"jsx": "react"
+	},
+	"files": [
+		"app/entrypoint.tsx"
+	]
+}

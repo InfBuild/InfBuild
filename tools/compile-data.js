@@ -169,9 +169,17 @@ Promise.all(sources.map(src => new Promise((resolve, reject) =>
 			let vars = sourcesToWrite.map(src => `${src.name} = [], ${src.name}ById = [], ${src.name}ByKey = []`).join("; ");
 			let build = sourcesToWrite.map(src =>
 			{
-				return `${src.name} = ${src.name}.map(function(v, i) { return ${src.name.slice(0, -4)}.fromJsonObject(${src.dependsOn ? src.dependsOn + ", " : ""}i, v) }); ${src.name}.byId = function(_) { return ${src.name}[${src.name}ById[_]] }; ${src.name}.byKey = function(_) { return ${src.name}[${src.name}ByKey[_]] }`
+				return `${src.name} = ${src.name}.map(function(v, i) { return ${src.name.slice(0, -4)}.fromJsonObject(${src.dependsOn ? src.dependsOn + ", " : ""}i, v) });
+					${src.name}.byId = function(_) { return ${src.name}[${src.name}ById[_]] };
+					${src.name}.byKey = function(_) { return ${src.name}[${src.name}ByKey[_]] }`
 			}).join("; ");
-			let result = `var resources = (function() { var ${vars}; ${lines.join("; ")}; ${build}; return new Resources(AircraftList, SpecialWeaponList, PartsList, EnemyList, DatalinkList, StageList) })()`;
+			let result = `var initializeResources = function(Resources, Aircraft, SpecialWeapon, Parts, Enemy, Datalink, Stage)
+			{
+				var ${vars};
+				${lines.join("; ")};
+				${build};
+				return new Resources(AircraftList, SpecialWeaponList, PartsList, EnemyList, DatalinkList, StageList);
+			}`;
 
 			fs.writeFileSync(path.join(__dirname, `../dist/data.js`), result, { encoding: "utf8" });
 		}
