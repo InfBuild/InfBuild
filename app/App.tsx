@@ -32,10 +32,12 @@ export default class App extends React.Component<IAppProps, IAppState>
 
 	constructor(props: IAppProps)
 	{
+		const localStorage = App.getLocalStorage();
+
 		super(props);
 
 		this.state = {
-			language: "ja",
+			language: localStorage["language"] || "ja",
 			builds: props.hash && !~App.dialogNames.indexOf(props.hash)
 				? this.getBuildsFromHash(props.hash)
 				: [IBuild.create(props.resources)],
@@ -45,6 +47,21 @@ export default class App extends React.Component<IAppProps, IAppState>
 			textOutputVisible: false,
 			visibleDialogs: []
 		};
+	}
+
+	static getLocalStorage()
+	{
+		try
+		{
+			if (!window.localStorage)
+				return {};
+			else
+				return window.localStorage;
+		}
+		catch (err)
+		{
+			return {};
+		}
 	}
 
 	componentWillReceiveProps(nextProps: IAppProps, _: any)
@@ -131,7 +148,11 @@ export default class App extends React.Component<IAppProps, IAppState>
 					<Header
 						version={this.props.version}
 						language={this.state.language}
-						onLanguageChanged={_ => this.setState({ language: _ } as IAppState)}
+						onLanguageChanged={_ =>
+						{
+							localStorage["language"] = _;
+							this.setState({ language: _ } as IAppState);
+						} }
 						onResetClicked={this.reset.bind(this)}
 						onLoadClicked={() => this.setState({
 							loadAircraftSetVisible: !this.state.loadAircraftSetVisible,
