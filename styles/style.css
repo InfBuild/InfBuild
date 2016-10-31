@@ -251,13 +251,13 @@ footer li + li {
   position: fixed;
   top: 0;
   left: auto;
-  width: 512px;
+  width: 552px;
   height: 100%;
   overflow: auto;
 }
 #results {
   position: relative;
-  margin-left: 512px;
+  margin-left: 552px;
   margin-right: 8px;
   padding-top: 120px;
   min-height: 100%;
@@ -385,7 +385,7 @@ input[type="number"] {
   position: fixed;
   left: auto;
   top: 0;
-  width: 480px;
+  width: 520px;
   padding-top: 32px;
   background: white;
   z-index: 2;
