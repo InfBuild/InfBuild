@@ -470,7 +470,7 @@ class EquipmentHeader extends React.Component<IEquipmentHeaderProps, {
 						</span>
 				</legend>
 				<div id="parts-categories">
-					{["Current", "Speed", "Mobility", "Defense", "MSL", "SP.M", "SP.B", "SP.O", "Misc"].map(_ =>
+					{["Current", "Speed", "Mobility", "Defense", "GUN", "MSL", "SP.M", "SP.B", "SP.O", "Misc"].map(_ =>
 						<label
 							key={_}
 							htmlFor={"parts-categories-" + this.props.getClassNameForCategory(_)}
