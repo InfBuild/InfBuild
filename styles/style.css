@@ -379,19 +379,12 @@ input[type="number"] {
   display: none;
 }
 #parts-header {
-  height: 26px;
-}
-#parts-header.fixed {
-  position: fixed;
-  left: auto;
+  position: sticky;
   top: 0;
-  width: 520px;
+  margin-top: -32px;
   padding-top: 32px;
   background: white;
   z-index: 2;
-}
-#parts-header.fixed + #parts-categorized {
-  margin-top: 58px;
 }
 #parts-categories,
 header nav {
