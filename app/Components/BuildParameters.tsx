@@ -337,7 +337,6 @@ class EquipmentParameters extends React.Component<IEquipmentParametersProps, {
 	selectedCategory: string;
 }>
 {
-
 	constructor(props: IEquipmentParametersProps)
 	{
 		super(props);
@@ -397,51 +396,9 @@ class EquipmentHeader extends React.Component<IEquipmentHeaderProps, {
 	partsHeaderTop: string;
 }>
 {
-	private onScroll = () =>
-	{
-		const partsHeader = document.getElementById("parts-header");
-		const parts = partsHeader.parentElement;
-		const isSplitScreen = window.innerWidth > 960;
-		const scrollTop = isSplitScreen
-			? document.getElementById("parameters").scrollTop
-			: window.scrollY;
-		const partsTop = parts.offsetTop;
-		const partsHeight = parts.offsetHeight;
-		const headerHeight = partsHeader.offsetHeight;
-
-		if (scrollTop > partsTop && scrollTop < headerHeight + partsTop + partsHeight)
-			this.setState({
-				partsHeaderClass: "fixed",
-				partsHeaderTop: Math.min(0, partsTop + partsHeight - scrollTop - headerHeight - 8) + "px",
-			});
-		else
-			this.setState({
-				partsHeaderClass: "",
-				partsHeaderTop: "",
-			});
-	};
-
 	constructor(props: IEquipmentHeaderProps)
 	{
 		super(props);
-		this.state = {
-			partsHeaderClass: "",
-			partsHeaderTop: ""
-		};
-	}
-
-	componentDidMount()
-	{
-		window.addEventListener("scroll", this.onScroll);
-		window.addEventListener("resize", this.onScroll);
-		document.getElementById("parameters").addEventListener("scroll", this.onScroll);
-	}
-
-	componentWillUnmount()
-	{
-		window.removeEventListener("scroll", this.onScroll);
-		window.removeEventListener("resize", this.onScroll);
-		document.getElementById("parameters").removeEventListener("scroll", this.onScroll);
 	}
 
 	private onSelectedCategoryChanged(e: React.FormEvent<HTMLInputElement>)
@@ -455,7 +412,7 @@ class EquipmentHeader extends React.Component<IEquipmentHeaderProps, {
 		const maxSlots = this.props.maxSlots;
 
 		return (
-			<div id="parts-header" className={this.state.partsHeaderClass} style={{ top: this.state.partsHeaderTop }}>
+			<div id="parts-header">
 				<legend>
 					Equipments
 						<span className="note">

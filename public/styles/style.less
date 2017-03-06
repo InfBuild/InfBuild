@@ -547,23 +547,12 @@ input[type="number"]
 
 #parts-header
 {
-	height: 26px;
-
-	&.fixed
-	{
-		position: fixed;
-		left: auto;
-		top: 0;
-		width: @parameters-width - 32px;
-		padding-top: @legend-height;
-		background: white;
-		z-index: 2;
-
-		+ #parts-categorized
-		{
-			margin-top: 26px + 32px;
-		}
-	}
+	position: sticky;
+	top: 0;
+	margin-top: -32px;
+	padding-top: 32px;
+	background: white;
+	z-index: 2;
 }
 
 #parts-categories, header nav
