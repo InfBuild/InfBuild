@@ -21,9 +21,6 @@ function shellexec(cmd, cb)
 	});
 }
 
-gulp.task("install:bower", cb => shellexec("bower install", cb));
-gulp.task("install", ["install:bower"]);
-
 gulp.task("build:clean", cb =>
 {
 	del("dist").then(() => fs.mkdir("dist", cb));
@@ -33,9 +30,6 @@ gulp.task("build:less", () =>
 		.pipe(less())
 		.pipe(gulp.dest("dist")));
 gulp.task("build:data", cb => shellexec("node tools/compile-data.js", cb));
-gulp.task("build:bower", () =>
-	gulp.src("bower_components/*/{dist,knockout-repeat.js}{,/**}", { base: "bower_components" })
-		.pipe(gulp.dest("dist/components")));
 gulp.task("build:public", () =>
 	gulp.src([
 		"public/**/*",
@@ -51,7 +45,7 @@ gulp.task("build:app", () =>
 gulp.task("build", cb =>
 	runSequence(
 		"build:clean",
-		["build:less", "build:data", "build:public", "build:bower", "build:app"],
+		["build:less", "build:data", "build:public", "build:app"],
 		cb));
 
 gulp.task("deploy:ver", () =>
