@@ -5,7 +5,6 @@ const
 	browserify = require("browserify"),
 	tsify = require("tsify"),
 	runSequence = require("run-sequence"),
-	ghPages = require("gulp-gh-pages"),
 	exec = require("child_process").exec,
 	del = require("del"),
 	fs = require("fs"),
@@ -51,12 +50,8 @@ gulp.task("build", cb =>
 gulp.task("deploy:ver", () =>
 	file("ver.js", `function initializeVersion(Version) { return new Version(new Date(${new Date().getTime()})); }`, { src: true })
 		.pipe(gulp.dest("dist")));
-gulp.task("deploy:gh-pages", () =>
-	gulp.src("dist/**/*")
-		.pipe(ghPages({ remoteUrl: "./" })));
 gulp.task("deploy", cb =>
 	runSequence(
 		"build",
 		"deploy:ver",
-		"deploy:gh-pages",
 		cb));
