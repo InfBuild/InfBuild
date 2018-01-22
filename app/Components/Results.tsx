@@ -278,7 +278,7 @@ function Gauge(props: {
 		"results-gauge",
 		["results-gauge-msl", "results-gauge-spw", "results-gauge-strong", "results-gauge-weak"][props.type],
 		props.multiplier > 1 ? "results-gauge-multi" : null,
-		weapon.role != SpecialWeaponRole.Other && weapon.role != props.enemyRole as number ? "results-gauge-none" : null
+		(weapon.role != SpecialWeaponRole.Other && weapon.role != props.enemyRole as number) ? "results-gauge-none" : null
 	].filter(_ => _).join(" ");
 	const damageClass = damage >= 2400 ? "dmg-d2400" : damage >= 2000 ? "dmg-d2000" : damage >= 1600 ? "dmg-d1600" : null;
 	const style = { height: props.enemies.filter(_ => damage + 20 > _.getHitPoint(props.stage)).length * 20 + "px" };
