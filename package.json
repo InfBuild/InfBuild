@@ -2,6 +2,7 @@
   "name": "infbuild",
   "version": "0.0.0",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "clean": "rimraf dist && mkdir dist",
     "build": "run-s clean build:*",
     "build:parcel": "parcel build app/entrypoint.tsx -d dist -o app.js",
@@ -24,5 +25,9 @@
     "react-dom": "^17.0.1",
     "rimraf": "^3.0.2",
     "typescript": "4.1.2"
+  },
+  "resolutions": {
+    "node-forge": ">=0.10.0",
+    "braces": ">=2.3.1"
   }
 }
