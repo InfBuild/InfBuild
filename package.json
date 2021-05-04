@@ -13,18 +13,18 @@
     "deploy:ver": "node tools/generate-ver.js"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
+    "@types/react": "^17.0.5",
+    "@types/react-dom": "^17.0.3",
     "cpx": "^1.5.0",
-    "csv-parse": "^4.14.1",
+    "csv-parse": "^4.15.4",
     "del": "^6.0.0",
-    "less": "^3.12.2",
+    "less": "^4.1.1",
     "npm-run-all": "^4.1.5",
-    "parcel-bundler": "^1.12.4",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "parcel-bundler": "^1.12.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "rimraf": "^3.0.2",
-    "typescript": "4.1.2"
+    "typescript": "4.2.4"
   },
   "resolutions": {
     "node-forge": ">=0.10.0",
