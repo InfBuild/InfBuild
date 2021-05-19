@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.6",
-    "@types/react-dom": "^17.0.3",
+    "@types/react-dom": "^17.0.5",
     "cpx": "^1.5.0",
     "csv-parse": "^4.15.4",
     "del": "^6.0.0",
