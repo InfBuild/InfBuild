@@ -13,7 +13,7 @@
     "deploy:ver": "node tools/generate-ver.js"
   },
   "devDependencies": {
-    "@types/react": "^17.0.39",
+    "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.11",
     "cpx": "^1.5.0",
     "csv-parse": "^4.16.3",
