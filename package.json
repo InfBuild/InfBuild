@@ -4,12 +4,16 @@
   "scripts": {
     "clean": "rimraf dist && mkdir dist",
     "build": "run-s clean build:*",
-    "build:parcel": "parcel build app/entrypoint.tsx -d dist -o app.js",
+    "build:parcel": "parcel build app/entrypoint.tsx",
     "build:data": "node tools/compile-data.js",
     "build:less": "mkdir -p dist/styles && lessc public/styles/style.less dist/styles/style.css",
     "build:cpx": "cpx \"public/**/{*.html,CNAME}\" dist",
     "deploy": "run-s build deploy:*",
     "deploy:ver": "node tools/generate-ver.js"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.25",
@@ -19,10 +23,15 @@
     "del": "^7.0.0",
     "less": "^4.1.3",
     "npm-run-all": "^4.1.5",
-    "parcel-bundler": "^1.12.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "parcel": "^2.8.0",
     "rimraf": "^3.0.2",
     "typescript": "4.8.4"
+  },
+  "targets": {
+    "default": {
+      "distDir": "./dist",
+      "context": "browser",
+      "outputFormat": "global"
+    }
   }
 }
