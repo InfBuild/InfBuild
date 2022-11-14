@@ -1,7 +1,8 @@
 const fs = require("fs");
 const path = require("path");
-const parse = require("csv-parse");
+const csvParse = require("csv-parse");
 
+const parse = csvParse.parse;
 const isUncertain = str => str == "" || str.includes("?");
 const parseOrEmpty = (str, parser, defaultValue = null) => str == "" ? defaultValue : parser(str);
 const defaultIfEmpty = (str, defaultValue = null) => str == "" ? defaultValue : str;
